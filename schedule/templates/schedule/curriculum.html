@@ -1,0 +1,31 @@
+{% extends 'schedule/base.html' %}
+{% block curriculum_active %}active{% endblock %}
+{% block add_href %}{% url 'schedule:curriculum-add' %}{% endblock %}
+{% block add_text %}Curriculum{% endblock %}
+
+{% block body %}
+	
+	<ul>
+		{% for curriculum in all_curriculums %}
+			<div class="col-sm-3 col-lg-3">
+	            <div class="thumbnail">
+	                
+	                <p>{{ curriculum.name }}</p>
+
+	                <!-- View Details -->
+	                <a href="{% url 'schedule:curriculum_detail' curriculum.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+	                <!-- Delete -->
+	                <form action="" method="post" style="display: inline;">
+	                    {% csrf_token %}
+	                    <input type="hidden" name="course_id" value="{{ course.id }}" />
+	                    <button type="submit" class="btn btn-default btn-sm">
+	                        <span class="glyphicon glyphicon-trash"></span>
+	                    </button>
+	                </form>
+	            </div>
+	        </div>
+		{% endfor %}
+	</ul>
+	
+{% endblock %}

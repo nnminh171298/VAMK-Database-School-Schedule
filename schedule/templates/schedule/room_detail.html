@@ -1,0 +1,10 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Room Detail{% endblock %}
+{% block room_active %}active{% endblock %}
+{% block add_href %}{% url 'schedule:room-add' %}{% endblock %}
+{% block add_text %}Room{% endblock %}
+
+{% block body %}
+	<h3>{{ room.name }}</h3>
+	<p>Seats: {{ room.seat }}</p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Course Detail{% endblock %}
+{% block course_active %}active{% endblock %}
+{% block add_href %}{% url 'schedule:course-add' %}{% endblock %}
+{% block add_text %}Course{% endblock %}
+
+{% block body %}
+	<h3>{{ course.name }}</h3>
+	<p>Code: {{ course.code }}</p>
+	<p>Language: {{ course.language }}</p>
+	<p>Credit: {{ course.credit }}</p>
+	<p>Semester: {{ course.semester }}</p>
+	<p>Curriculum: {{ course.curriculumid }}</p>
+{% endblock %}

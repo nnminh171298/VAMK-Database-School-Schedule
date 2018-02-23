@@ -1,0 +1,32 @@
+{% extends 'schedule/base.html' %}
+{% block course_active %}active{% endblock %}
+{% block add_href %}{% url 'schedule:course-add' %}{% endblock %}
+{% block add_text %}Course{% endblock %}
+
+{% block body %}
+
+	<ul>
+		{% for course in all_courses %}
+			<div class="col-sm-5 col-lg-5">
+	            <div class="thumbnail">
+	                
+	                <p>{{ course.code }} - {{ course.name }} - {{ course.credit }}cr</p>
+	                <p>Curriculum: {{ course.curriculumid }}</p>
+
+	                <!-- View Details -->
+	                <a href="{% url 'schedule:course_detail' course.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+	                <!-- Delete -->
+	                <form action="" method="post" style="display: inline;">
+	                    {% csrf_token %}
+	                    <input type="hidden" name="course_id" value="{{ course.id }}" />
+	                    <button type="submit" class="btn btn-default btn-sm">
+	                        <span class="glyphicon glyphicon-trash"></span>
+	                    </button>
+	                </form>
+	            </div>
+	        </div>
+		{% endfor %}
+	</ul>
+	
+{% endblock %}

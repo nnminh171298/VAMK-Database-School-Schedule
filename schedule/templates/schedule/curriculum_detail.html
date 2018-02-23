@@ -1,0 +1,9 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Curriculum Detail{% endblock %}
+{% block curriculum_active %}active{% endblock %}
+{% block add_href %}{% url 'schedule:curriculum-add' %}{% endblock %}
+{% block add_text %}Curriculum{% endblock %}
+
+{% block body %}
+	<h3>{{ curriculum.name }}</h3>
+{% endblock %}
