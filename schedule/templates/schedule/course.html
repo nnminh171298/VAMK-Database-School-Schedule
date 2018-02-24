@@ -16,8 +16,17 @@
 	                <!-- View Details -->
 	                <a href="{% url 'schedule:course_detail' course.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 
+	                <!-- Update -->
+	                <form action="{% url 'schedule:course-update' course.id %}" style="display: inline;">
+	                    {% csrf_token %}
+	                    <input type="hidden" name="course_id" value="{{ course.id }}" />
+	                    <button type="submit" class="btn btn-default btn-sm">
+	                        <span class="glyphicon glyphicon-pencil"></span>
+	                    </button>
+	                </form>
+
 	                <!-- Delete -->
-	                <form action="" method="post" style="display: inline;">
+	                <form action="{% url 'schedule:course-delete' course.id %}" method="post" style="display: inline;">
 	                    {% csrf_token %}
 	                    <input type="hidden" name="course_id" value="{{ course.id }}" />
 	                    <button type="submit" class="btn btn-default btn-sm">
