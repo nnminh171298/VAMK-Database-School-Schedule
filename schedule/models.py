@@ -14,7 +14,7 @@ class Course(models.Model):
 		db_table = 'course'
 
 	def __str__(self):
-		return self.name + ' - ' + self.credit
+		return str(self.curriculumid) + ' - ' + str(self.credit) + 'cr' + ' - ' + self.name
 
 	def get_absolute_url(self):
 		return reverse('schedule:course_detail', kwargs={'pk': self.pk})
@@ -84,7 +84,7 @@ class Room(models.Model):
 		db_table = 'room'
 
 	def __str__(self):
-		return self.name + ' - ' + self.seat
+		return self.name + ' - ' + str(self.seat) + ' seats'
 
 	def get_absolute_url(self):
 		return reverse('schedule:room_detail', kwargs={'pk': self.pk})
