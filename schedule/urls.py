@@ -5,6 +5,8 @@ from . import views
 app_name = 'schedule'
 
 urlpatterns = [
+    url(r'^register/$', views.UserFormView.as_view(), name='register'),
+
     url(r'^course/$', views.CourseView.as_view(), name='course'),
     url(r'^course/(?P<pk>[0-9]+)/$', views.CourseDetail.as_view(), name='course_detail'),
     url(r'^course/add/$', views.CourseCreate.as_view(), name='course-add'),

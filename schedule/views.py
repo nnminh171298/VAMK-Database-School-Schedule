@@ -1,7 +1,13 @@
-from django.views import generic
 from .models import Course, Curriculum, Room, Group, Teacher
+from .forms import UserForm
+from .serializers import CourseSerializer, CurriculumSerializer, RoomSerializer, GroupSerializer, TeacherSerializer
+from django.views import generic
+from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from rest_framework import viewsets
 
 #Course
 class CourseView(generic.ListView):
@@ -27,6 +33,10 @@ class CourseDelete(DeleteView):
 	model = Course
 	success_url = reverse_lazy('schedule:course')
 
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
 #Curriculum
 class CurriculumView(generic.ListView):
 	template_name = 'schedule/curriculum.html'
@@ -50,6 +60,10 @@ class CurriculumUpdate(UpdateView):
 class CurriculumDelete(DeleteView):
 	model = Curriculum
 	success_url = reverse_lazy('schedule:curriculum')
+
+class CurriculumViewSet(viewsets.ModelViewSet):
+    queryset = Curriculum.objects.all()
+    serializer_class = CurriculumSerializer
 
 #Room
 class RoomView(generic.ListView):
@@ -75,6 +89,10 @@ class RoomDelete(DeleteView):
 	model = Room
 	success_url = reverse_lazy('schedule:room')
 
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
 #Group
 class GroupView(generic.ListView):
 	template_name = 'schedule/group.html'
@@ -99,6 +117,10 @@ class GroupDelete(DeleteView):
 	model = Group
 	success_url = reverse_lazy('schedule:group')
 
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
 #Teacher
 class TeacherView(generic.ListView):
 	template_name = 'schedule/teacher.html'
@@ -122,3 +144,37 @@ class TeacherUpdate(UpdateView):
 class TeacherDelete(DeleteView):
 	model = Teacher
 	success_url = reverse_lazy('schedule:teacher')
+
+class TeacherViewSet(viewsets.ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+
+#Registration
+class UserFormView(View):
+	form_class = UserForm
+	template_name = 'schedule/registration_form.html'
+
+	#display blank form
+	def get(self, request):
+		form = self.form_class(None)
+		return render(request, self.template_name, {'form': form})
+
+	#process form data
+	def post(self, request):
+		form = self.form_class(request.POST)
+
+		if form.is_valid():
+			user = form.save(commit = False)
+			#cleaned (normalized) data
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			user.set_password(password)
+			user.save()
+
+			#returns User objects if credentials are correct
+			user = authenticate(username = username, password = password)
+			if user is not None:
+				if user.is_active:
+					login(request, user)
+					return redirect('schedule:schedule_index')
+		return render(request, self.template_name, {'form': form})
