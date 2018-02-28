@@ -7,4 +7,22 @@
 {% block body %}
 	<h3>{{ teacher.name }}</h3>
 	<p>Code: {{ teacher.code }}</p>
+
+	<!-- Update -->
+	<form action="{% url 'schedule:teacher-update' teacher.id %}" style="display: inline;">
+		{% csrf_token %}
+		<input type="hidden" name="teacher_id" value="{{ teacher.id }}" />
+		<button type="submit" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-pencil"></span>
+		</button>
+	</form>
+
+	<!-- Delete -->
+	<form action="{% url 'schedule:teacher-delete' teacher.id %}" method="post" style="display: inline;">
+		{% csrf_token %}
+		<input type="hidden" name="teacher_id" value="{{ teacher.id }}" />
+		<button type="submit" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</form>
 {% endblock %}

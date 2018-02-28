@@ -37,5 +37,12 @@ urlpatterns = [
     url(r'^group/(?P<pk>[0-9]+)/update/$', views.GroupUpdate.as_view(), name='group-update'),
     url(r'^group/(?P<pk>[0-9]+)/delete/$', views.GroupDelete.as_view(), name='group-delete'),
 
+    url(r'^implement/$', views.ImplementView.as_view(), name='implement'),
+    url(r'^implement/(?P<pk>[0-9]+)/$', views.ImplementDetail.as_view(), name='implement_detail'),
+    url(r'^implement/add/$', views.ImplementCreate.as_view(), name='implement-add'),
+    url(r'^implement/add/teacher/(?P<pk>[0-9]+)/$', views.ImplementTeacherCreate.as_view(), name='implement-teacher-add'),
+    url(r'^implement/add/group/(?P<pk>[0-9]+)/$', views.ImplementGroupCreate.as_view(), name='implement-group-add'),
+    url(r'^implement/(?P<pk>[0-9]+)/delete/$', views.ImplementDelete.as_view(), name='implement-delete'),
+
     url(r'^$', RedirectView.as_view(url='course', permanent=False), name='schedule_index'),
 ]

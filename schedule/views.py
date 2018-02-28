@@ -1,4 +1,4 @@
-from .models import Course, Curriculum, Room, Group, Teacher
+from .models import Course, Curriculum, Room, Group, Teacher, CourseImplementation, TeacherCourseImplementation, GroupCourseImplementation
 from .forms import UserForm
 from .serializers import CourseSerializer, CurriculumSerializer, RoomSerializer, GroupSerializer, TeacherSerializer
 from django.views import generic
@@ -6,8 +6,9 @@ from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import viewsets
+from django.views.generic.base import ContextMixin
 
 #Course
 class CourseView(generic.ListView):
@@ -178,3 +179,39 @@ class UserFormView(View):
 					login(request, user)
 					return redirect('schedule:schedule_index')
 		return render(request, self.template_name, {'form': form})
+
+#Implementation
+class ImplementView(generic.ListView):
+	template_name = 'schedule/implement.html'
+	context_object_name = 'all_implements'
+
+	def get_queryset(self):
+		return CourseImplementation.objects.all().prefetch_related('teachercourseimplementation_set', 'groupcourseimplementation_set')
+
+class ImplementDetail(generic.DetailView):
+	model = CourseImplementation
+	template_name = 'schedule/implement_detail.html'
+
+class ImplementCreate(CreateView):
+	model = CourseImplementation
+	fields = ['courseid', 'roomid', 'note']
+
+class ImplementTeacherCreate(CreateView):
+	model = TeacherCourseImplementation
+	fields = ['course_impleid','teacherid', 'p1', 'p2', 'p3', 'p4', 'p5']
+	
+	def get_initial(self):
+		course = get_object_or_404(CourseImplementation, pk=self.kwargs.get('pk'))
+		return {'course_impleid':course,}
+
+class ImplementGroupCreate(CreateView):
+	model = GroupCourseImplementation
+	fields = ['course_implementationid', 'groupid']
+
+	def get_initial(self):
+		course = get_object_or_404(CourseImplementation, pk=self.kwargs.get('pk'))
+		return {'course_implementationid':course,}
+
+class ImplementDelete(DeleteView):
+	model = CourseImplementation
+	success_url = reverse_lazy('schedule:implement')

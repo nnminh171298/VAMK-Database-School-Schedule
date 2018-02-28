@@ -1,0 +1,29 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Implement Detail{% endblock %}
+{% block implement_active %}active{% endblock %}
+{% block add_href %}{% url 'schedule:implement-add' %}{% endblock %}
+{% block add_text %}Implement{% endblock %}
+
+{% block body %}
+	<h3>{{ courseimplementation.courseid }}</h3>
+	{% for teacher_course_implementation in courseimplementation.teachercourseimplementation_set.all %}
+		<p>Teacher: {{ teacher_course_implementation.teacherid }}</p>
+	{% endfor %}
+	{% for group_course_implementation in courseimplementation.groupcourseimplementation_set.all %}
+		<p>Group: {{ group_course_implementation.groupid }}</p>
+	{% endfor %}
+	<p>Room: {{ courseimplementation.roomid }}</p>
+	<p>Note: {{ courseimplementation.note }}</p>
+
+	<a href="{% url 'schedule:implement-teacher-add' courseimplementation.id %}" class="btn btn-primary btn-sm" role="button">Add teacher</a>
+	<a href="{% url 'schedule:implement-group-add' courseimplementation.id %}" class="btn btn-primary btn-sm" role="button">Add group</a>
+
+	<!-- Delete -->
+	<form action="{% url 'schedule:implement-delete' courseimplementation.id %}" method="post" style="display: inline;">
+	    {% csrf_token %}
+	    <input type="hidden" name="implement_id" value="{{ courseimplementation.id }}" />
+	    <button type="submit" class="btn btn-default btn-sm">
+	        <span class="glyphicon glyphicon-trash"></span>
+	    </button>
+	</form>
+{% endblock %}

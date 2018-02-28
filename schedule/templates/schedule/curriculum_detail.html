@@ -6,4 +6,22 @@
 
 {% block body %}
 	<h3>{{ curriculum.name }}</h3>
+
+	<!-- Update -->
+	<form action="{% url 'schedule:curriculum-update' curriculum.id %}" style="display: inline;">
+		{% csrf_token %}
+		<input type="hidden" name="curriculum_id" value="{{ curriculum.id }}" />
+		<button type="submit" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-pencil"></span>
+		</button>
+	</form>
+	
+	<!-- Delete -->
+	<form action="{% url 'schedule:curriculum-delete' curriculum.id %}" method="post" style="display: inline;">
+		{% csrf_token %}
+		<input type="hidden" name="curriculum_id" value="{{ curriculum.id }}" />
+		<button type="submit" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</form>
 {% endblock %}

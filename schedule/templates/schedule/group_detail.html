@@ -8,4 +8,22 @@
 	<h3>{{ group.code }}</h3>
 	<p>Degree: {{ group.degree }}</p>
 	<p>Curriculumid: {{ group.curriculumid }}</p>
+
+	<!-- Update -->
+	<form action="{% url 'schedule:group-update' group.id %}" style="display: inline;">
+		{% csrf_token %}
+		<input type="hidden" name="group_id" value="{{ group.id }}" />
+		<button type="submit" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-pencil"></span>
+		</button>
+	</form>
+
+	<!-- Delete -->
+	<form action="{% url 'schedule:group-delete' group.id %}" method="post" style="display: inline;">
+		{% csrf_token %}
+		<input type="hidden" name="group_id" value="{{ group.id }}" />
+		<button type="submit" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</form>
 {% endblock %}

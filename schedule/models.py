@@ -21,7 +21,7 @@ class Course(models.Model):
 
 
 class CourseImplementation(models.Model):
-	courseid = models.ForeignKey(Course, models.DO_NOTHING, db_column='courseid')
+	courseid = models.ForeignKey(Course, on_delete=models.CASCADE, db_column='courseid', )
 	roomid = models.ForeignKey('Room', models.DO_NOTHING, db_column='roomid', blank=True, null=True)
 	note = models.CharField(max_length=10, blank=True, null=True)
 
@@ -30,7 +30,10 @@ class CourseImplementation(models.Model):
 		db_table = 'course_implementation'
 
 	def __str__(self):
-		return self.pk + ' - ' + self.courseid
+		return str(self.pk) + ' - ' + str(self.courseid)
+
+	def get_absolute_url(self):
+		return reverse('schedule:implement_detail', kwargs={'pk': self.pk})
 
 
 class Curriculum(models.Model):
@@ -63,16 +66,18 @@ class Group(models.Model):
 
 
 class GroupCourseImplementation(models.Model):
-	groupid = models.ForeignKey(Group, models.DO_NOTHING, db_column='groupid', primary_key=True)
-	course_implementationid = models.ForeignKey(CourseImplementation, models.DO_NOTHING, db_column='course_implementationid')
+	groupid = models.ForeignKey(Group, on_delete=models.CASCADE, db_column='groupid')
+	course_implementationid = models.ForeignKey(CourseImplementation, on_delete=models.CASCADE, db_column='course_implementationid')
 
 	class Meta:
 		managed = False
 		db_table = 'group_course_implementation'
-		unique_together = (('groupid', 'course_implementationid'),)
 
 	def __str__(self):
-		return self.pk + ' - ' + self.groupid
+		return self.pk + ' - ' + self.course_implementationid
+
+	def get_absolute_url(self):
+		return reverse('schedule:implement_detail', kwargs={'pk': self.course_implementationid.pk})
 
 
 class Room(models.Model):
@@ -106,8 +111,8 @@ class Teacher(models.Model):
 
 
 class TeacherCourseImplementation(models.Model):
-	teacherid = models.ForeignKey(Teacher, models.DO_NOTHING, db_column='teacherid', primary_key=True)
-	course_impleid = models.ForeignKey(CourseImplementation, models.DO_NOTHING, db_column='course_impleid')
+	teacherid = models.ForeignKey(Teacher, on_delete=models.CASCADE, db_column='teacherid')
+	course_impleid = models.ForeignKey(CourseImplementation, on_delete=models.CASCADE, db_column='course_impleid')
 	p1 = models.IntegerField(blank=True, null=True)
 	p2 = models.IntegerField(blank=True, null=True)
 	p3 = models.IntegerField(blank=True, null=True)
@@ -117,7 +122,9 @@ class TeacherCourseImplementation(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'teacher_course_implementation'
-		unique_together = (('teacherid', 'course_impleid'),)
 
 	def __str__(self):
-		return self.pk + ' - ' + self.teacherid
+		return self.pk + ' - ' + self.course_impleid
+
+	def get_absolute_url(self):
+		return reverse('schedule:implement_detail', kwargs={'pk': self.course_impleid.pk})
