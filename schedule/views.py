@@ -8,7 +8,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import viewsets
-from django.views.generic.base import ContextMixin
 
 #Course
 class CourseView(generic.ListView):
