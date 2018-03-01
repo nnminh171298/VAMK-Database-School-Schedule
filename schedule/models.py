@@ -20,22 +20,6 @@ class Course(models.Model):
 		return reverse('schedule:course_detail', kwargs={'pk': self.pk})
 
 
-class CourseImplementation(models.Model):
-	courseid = models.ForeignKey(Course, on_delete=models.CASCADE, db_column='courseid', )
-	roomid = models.ForeignKey('Room', models.DO_NOTHING, db_column='roomid', blank=True, null=True)
-	note = models.CharField(max_length=10, blank=True, null=True)
-
-	class Meta:
-		managed = False
-		db_table = 'course_implementation'
-
-	def __str__(self):
-		return str(self.pk) + ' - ' + str(self.courseid)
-
-	def get_absolute_url(self):
-		return reverse('schedule:implement_detail', kwargs={'pk': self.pk})
-
-
 class Curriculum(models.Model):
 	name = models.CharField(max_length=10)
 
@@ -48,6 +32,7 @@ class Curriculum(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('schedule:curriculum_detail', kwargs={'pk': self.pk})
+
 
 class Group(models.Model):
 	code = models.CharField(max_length=10)
@@ -63,21 +48,6 @@ class Group(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('schedule:group_detail', kwargs={'pk': self.pk})
-
-
-class GroupCourseImplementation(models.Model):
-	groupid = models.ForeignKey(Group, on_delete=models.CASCADE, db_column='groupid')
-	course_implementationid = models.ForeignKey(CourseImplementation, on_delete=models.CASCADE, db_column='course_implementationid')
-
-	class Meta:
-		managed = False
-		db_table = 'group_course_implementation'
-
-	def __str__(self):
-		return self.pk + ' - ' + self.course_implementationid
-
-	def get_absolute_url(self):
-		return reverse('schedule:implement_detail', kwargs={'pk': self.course_implementationid.pk})
 
 
 class Room(models.Model):
@@ -108,6 +78,37 @@ class Teacher(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('schedule:teacher_detail', kwargs={'pk': self.pk})
+
+
+class CourseImplementation(models.Model):
+	courseid = models.ForeignKey(Course, on_delete=models.CASCADE, db_column='courseid', )
+	roomid = models.ForeignKey('Room', models.DO_NOTHING, db_column='roomid', blank=True, null=True)
+	note = models.CharField(max_length=10, blank=True, null=True)
+
+	class Meta:
+		managed = False
+		db_table = 'course_implementation'
+
+	def __str__(self):
+		return str(self.pk) + ' - ' + str(self.courseid)
+
+	def get_absolute_url(self):
+		return reverse('schedule:implement_detail', kwargs={'pk': self.pk})
+
+
+class GroupCourseImplementation(models.Model):
+	groupid = models.ForeignKey(Group, on_delete=models.CASCADE, db_column='groupid')
+	course_implementationid = models.ForeignKey(CourseImplementation, on_delete=models.CASCADE, db_column='course_implementationid')
+
+	class Meta:
+		managed = False
+		db_table = 'group_course_implementation'
+
+	def __str__(self):
+		return self.pk + ' - ' + self.course_implementationid
+
+	def get_absolute_url(self):
+		return reverse('schedule:implement_detail', kwargs={'pk': self.course_implementationid.pk})
 
 
 class TeacherCourseImplementation(models.Model):

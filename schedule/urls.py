@@ -44,5 +44,10 @@ urlpatterns = [
     url(r'^implement/add/group/(?P<pk>[0-9]+)/$', views.ImplementGroupCreate.as_view(), name='implement-group-add'),
     url(r'^implement/(?P<pk>[0-9]+)/delete/$', views.ImplementDelete.as_view(), name='implement-delete'),
 
+    url(r'^report/$', views.ReportIndex, name='report_index'),
+    url(r'^report/teacherYear$', views.ReportTeacherYear, name='report_teacher_year'),
+    url(r'^report/teacherWeek$', views.ReportTeacherWeek, name='report_teacher_week'),
+    url(r'^report/groupDegree$', views.ReportGroupDegree, name='report_group_degree'),
+
     url(r'^$', RedirectView.as_view(url='course', permanent=False), name='schedule_index'),
 ]
