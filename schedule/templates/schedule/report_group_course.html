@@ -1,0 +1,56 @@
+{% extends 'schedule/base.html' %}
+{% block title %}Report{% endblock %}
+{% block report_active %}active{% endblock %}
+
+{% block body %}
+
+	<ul>
+		<div class="col-sm-3 col-lg-3">
+			<div class="thumbnail color">
+				<p><b>Group</b></p>
+			</div>
+		</div>
+		<div class="col-sm-9 col-lg-9">
+			<div class="thumbnail color">
+				<p><b>Courses</b></p>
+			</div>
+		</div>
+		{% for group in groups %}
+			{% for course in courses %}
+				{% if forloop.counter0 == forloop.parentloop.counter0 %}
+					{% if course.index == 0 %}
+						<div class="col-sm-3 col-lg-3">
+							<div class="thumbnail">
+								<p><b>{{ group.code }}</b></p>
+							</div>
+						</div>
+						<div class="col-sm-9 col-lg-9">
+							<div class="thumbnail">
+								<p>{{ course.course.curriculumid }} - {{ course.course.credit }}cr - {{ course.course.semester }} - {{ course.course.name }}</p>
+							</div>
+						</div>
+					{% elif course.index == -1 %}
+						<div class="col-sm-3 col-lg-3">
+							<div class="thumbnail">
+								<p>{{ group.code }}</p>
+							</div>
+						</div>
+						<div class="col-sm-9 col-lg-9">
+							<div class="thumbnail">
+								<p class="text-primary">There isn't any course in this group's curriculum</p>
+							</div>
+						</div>
+					{% else %}
+						<div class="col-sm-3 col-lg-3"></div>
+						<div class="col-sm-9 col-lg-9">
+							<div class="thumbnail">
+								<p>{{ course.course.curriculumid }} - {{ course.course.credit }}cr - {{ course.course.semester }} - {{ course.course.name }}</p>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	</ul>
+	
+{% endblock %}

@@ -283,3 +283,30 @@ def ReportTeacherWeek(request):
 		'implements': arr_hours
 	}	
 	return render(request, 'schedule/report_teacher_week.html', context)
+
+def ReportGroupCourse(request):
+	curriculums = Curriculum.objects.all()
+	courses = Course.objects.all().order_by('semester')
+	groups = Group.objects.all()
+	arr_groups = []
+	arr_courses = []
+	for g in groups:
+		if g.curriculumid is None:
+			arr_groups.append(g)
+			arr_courses.append({'index': -1})
+			continue
+		i = 0
+		for c in courses:
+			for cur in curriculums:
+				if(g.curriculumid.id == cur.pk and c.curriculumid.id == cur.pk):
+					arr_groups.append(g)
+					arr_courses.append({'index': i, 'course': c})
+					i += 1
+		if i == 0:
+			arr_groups.append(g)
+			arr_courses.append({'index': -1})
+	context = {
+		'groups': arr_groups,
+		'courses': arr_courses
+	}
+	return render(request, 'schedule/report_group_course.html', context)

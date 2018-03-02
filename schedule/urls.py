@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^report/teacherYear$', views.ReportTeacherYear, name='report_teacher_year'),
     url(r'^report/teacherWeek$', views.ReportTeacherWeek, name='report_teacher_week'),
     url(r'^report/groupDegree$', views.ReportGroupDegree, name='report_group_degree'),
+    url(r'^report/groupCourse$', views.ReportGroupCourse, name='report_group_course'),
 
     url(r'^$', RedirectView.as_view(url='course', permanent=False), name='schedule_index'),
 ]

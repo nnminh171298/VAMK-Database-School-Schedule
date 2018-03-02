@@ -50,7 +50,7 @@ Note:
 	(*)	insert new lecture, group, degree program, study plan
 (+)	Reporting client by Web client
 	(*)	teaching by teacher like in Excel
-	(-)	teaching by student group like in Excel
+	(*)	teaching by student group like in Excel
 	(*)	Student groups by degree program
 	(-)	Teachers by degree program
 	(+)	Teaching by teacher per week (weeks)
