@@ -23,7 +23,7 @@ Note:
 ```
 
 ### Validation criteria
-
+```
 * (*)	Database schema drawn with Visual Paradigm
 * (*)	Table names reasonable
 * (*)	Initial list of tables
@@ -60,3 +60,4 @@ Note:
 	* (*)	a setup.bat to make installation easy
 	* (*)	a run.bat to make running the app easy
 * (*)	OPTION: If you have time and energy you are welcome to deploy the app
+```
