@@ -91,6 +91,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
+##	USE THIS ONE FOR ANYWHERE ELSE
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'vamk',
@@ -99,6 +100,15 @@ DATABASES = {
         'HOST': 'vamk.c5dx2smnpjrm.eu-west-1.rds.amazonaws.com',
         'PORT': '3306', 
     }
+## 	USE THIS ONE FOR PYTHONANYWHERE
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'ngocminh9862$vamk',
+#        'USER': 'ngocminh9862',
+#        'PASSWORD': 'Trung000',
+#        'HOST': 'ngocminh9862.mysql.pythonanywhere-services.com',
+#        'PORT': '3306', 
+#    }
 }
 
 
