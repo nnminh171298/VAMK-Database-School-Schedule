@@ -14,12 +14,13 @@ Double click the file run.bat
 
 ## Self Assessment
 
-'''
+
 Note:
+```
 (*)	Completed
 (+)	Partly done
 (-)	Not working
-'''
+```
 
 ### Validation criteria
 
