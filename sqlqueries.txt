@@ -1,0 +1,39 @@
+1. teaching by teacher per year like in Excel
+
+select t.code as Code, t.name as Name, sum(ifnull(i.p1, 0) + ifnull(i.p2, 0)+ ifnull(i.p3, 0) + ifnull(i.p4, 0)+ ifnull(i.p5, 0)) as Hours 
+	from teacher as t, teacher_course_implementation as i
+	where t.id = i.teacherid
+	group by t.name;
+
+2. teaching by student group like in Excel
+
+select c.name as Courses, g.code as `Group`
+	from curriculum as cu, `group` as g, course as c 
+	where c.curriculumid = cu.id 
+	and g.curriculumid = cu.id
+	order by g.code, c.name;
+
+3. Student groups by degree program
+
+select g.code as `Group`, g.degree as Degree
+	from `group` as g 
+	order by g.degree, g.code;
+
+4. Teachers by degree program
+
+select distinct t.code as Code, t.name as Name, g.degree as Degree
+	from `group` as g, teacher as t, course_implementation as ci, group_course_implementation as gci, teacher_course_implementation as tci
+	where g.id = gci.groupid
+	and t.id = tci.teacherid
+	and ci.id = tci.course_impleid
+	and ci.id = gci.course_implementationid
+	order by t.code, g.degree;
+
+5. Teaching by teacher per week (weeks)
+
+select distinct t.code as Code, t.name as Name, sum(ifnull(tci.p1, 0)) as P1, sum(ifnull(tci.p2, 0)) as P2, sum(ifnull(tci.p3, 0)) as P3, sum(ifnull(tci.p4, 0)) as P4, sum(ifnull(tci.p5, 0)) as P5
+	from teacher as t, course_implementation as ci, teacher_course_implementation as tci
+	where t.id = tci.teacherid
+	and ci.id = tci.course_impleid
+	group by t.code
+	order by t.code

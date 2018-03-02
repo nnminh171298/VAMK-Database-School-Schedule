@@ -30,12 +30,13 @@ Note:
 (*)	Primary and foreign keys reasonable
 (*)	MySQL database tables created
 (*)	Data imported to the database
-(?)	Some SQL-queries (sqlqueries.txt) implemented
-		teaching by teacher per year like in Excel
-		teaching by student group like in Excel
-		Student groups by degree program
-		Teachers by degree program
-		Teaching by teacher per week (weeks)
+(+)	Some SQL-queries (sqlqueries.txt) implemented
+	(*)	teaching by teacher per year like in Excel
+	(*)	teaching by student group like in Excel
+	(*)	Student groups by degree program
+	(*)	Teachers by degree program
+	(+)	Teaching by teacher per week (weeks)
+		NOTE: I make this one to report teaching per period
 (*)	RESTful interface
 (*)	CRUD for teacher, group, course, degree program
 (*)	User authentication
