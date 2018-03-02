@@ -227,10 +227,8 @@ def ReportTeacherYear(request):
 		total_hours = 0
 		for i in implements:
 			if t.pk == i.teacherid.id:
-				total_hours = sum(filter(None, [i.p1, i.p2, i.p3, i.p4, i.p5]))
-				arr_hours.append(total_hours)
-		if total_hours == 0:
-			arr_hours.append(total_hours)
+				total_hours += sum(filter(None, [i.p1, i.p2, i.p3, i.p4, i.p5]))
+		arr_hours.append(total_hours)
 	context = {
 		'teachers': teachers,
 		'hours': arr_hours
@@ -259,14 +257,27 @@ def ReportTeacherWeek(request):
 	implements = TeacherCourseImplementation.objects.all()
 	arr_hours = []
 	for t in teachers:
-		teach = 0
+		p1 = 0
+		p2 = 0
+		p3 = 0
+		p4 = 0
+		p5 = 0
 		for i in implements:
 			if t.pk == i.teacherid.id:
-				teach = 1
-				arr_hours.append(i)
-		if teach == 0:
-			for x in range(0, 6):
-				arr_hours.append(0)
+				p1 = sum(filter(None, [i.p1, p1]))
+				p2 = sum(filter(None, [i.p2, p2]))
+				p3 = sum(filter(None, [i.p3, p3]))
+				p4 = sum(filter(None, [i.p4, p4]))
+				p5 = sum(filter(None, [i.p5, p5]))
+		i_ctx = {
+			'p1': p1,
+			'p2': p2,
+			'p3': p3,
+			'p4': p4,
+			'p5': p5
+		}
+		arr_hours.append(i_ctx)
+		
 	context = {
 		'teachers': teachers,
 		'implements': arr_hours

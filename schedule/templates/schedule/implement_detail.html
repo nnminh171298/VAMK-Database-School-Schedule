@@ -7,7 +7,7 @@
 {% block body %}
 	<h3>{{ courseimplementation.courseid }}</h3>
 	{% for teacher_course_implementation in courseimplementation.teachercourseimplementation_set.all %}
-		<p>Teacher: {{ teacher_course_implementation.teacherid }}</p>
+		<p>Teacher: {{ teacher_course_implementation.teacherid }} (Hours: {{ teacher_course_implementation.p1 }} - {{ teacher_course_implementation.p2 }} - {{ teacher_course_implementation.p3 }} - {{ teacher_course_implementation.p4 }} - {{ teacher_course_implementation.p5 }})</p>
 	{% endfor %}
 	{% for group_course_implementation in courseimplementation.groupcourseimplementation_set.all %}
 		<p>Group: {{ group_course_implementation.groupid }}</p>

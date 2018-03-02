@@ -93,10 +93,10 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'e1601125_vamk',
-        'USER': 'e1601125',
+        'NAME': 'vamk',
+        'USER': 'masterUsername',
         'PASSWORD': 'Trung000',
-        'HOST': 'mysql.cc.puv.fi',
+        'HOST': 'vamk.c5dx2smnpjrm.eu-west-1.rds.amazonaws.com',
         'PORT': '3306', 
     }
 }

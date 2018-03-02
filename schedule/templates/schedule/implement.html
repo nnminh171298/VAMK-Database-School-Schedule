@@ -10,7 +10,7 @@
 			<div class="col-sm-5 col-lg-5">
 	            <div class="thumbnail">
 	                
-	                <p>Course: {{ implement.courseid }}</p>
+	                <p><b>Course: {{ implement.courseid }}</b></p>
 	                {% for teacher_course_implementation in implement.teachercourseimplementation_set.all %}
 	                	<p>Teacher: {{ teacher_course_implementation.teacherid }}</p>
 	                {% endfor %}

@@ -38,23 +38,7 @@
 
 		            </div>
 		        </div>
-		        {% if implement == 0 %}
-			        <div class="col-sm-1 col-lg-1 thumbnail">
-			            <p>0</p>
-			        </div>
-			        <div class="col-sm-1 col-lg-1 thumbnail">
-			            <p>0</p>
-			        </div>
-			        <div class="col-sm-1 col-lg-1 thumbnail">
-			            <p>0</p>
-			        </div>
-			        <div class="col-sm-1 col-lg-1 thumbnail">
-			            <p>0</p>
-			        </div>
-			        <div class="col-sm-1 col-lg-1 thumbnail">
-			            <p>0</p>
-			        </div>
-			    {% else %}
+		        
 			    	<div class="col-sm-1 col-lg-1 thumbnail">
 			            <p>{{ implement.p1 }}</p>
 			        </div>
@@ -70,7 +54,7 @@
 			        <div class="col-sm-1 col-lg-1 thumbnail">
 			            <p>{{ implement.p5 }}</p>
 			        </div>
-			    {% endif %}
+			    
 			    <div class="col-sm-3 col-lg-3"></div>
 	        {% endif %}
 		{% endfor %}
