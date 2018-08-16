@@ -1,7 +1,8 @@
 # VAMK Database School Schedule
 
 ## Demo
-Web Client:	http://ngocminh9862.pythonanywhere.com 
+Web client:	http://ngocminh9862.pythonanywhere.com
+![vamk](https://user-images.githubusercontent.com/24993267/44193932-30e21500-a13d-11e8-9454-3ce7ee93e645.png)
 
 ## Requirements
 python 3.6.4
